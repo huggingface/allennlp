@@ -35,7 +35,7 @@ jobs:
     if: github.event_name == 'pull_request'
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
     - name: Check if source files have changed
       run: |
@@ -53,10 +53,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
     - name: Setup Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e  # v2
       with:
         python-version: 3.8
 
@@ -110,10 +110,10 @@ jobs:
             mv coverage.xml ../
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
     - name: Setup Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e  # v2
       env:
         # Log useful debugging information.
         ACTIONS_STEP_DEBUG: 'true'
@@ -143,7 +143,7 @@ jobs:
       run: |
         echo "TORCH_INSTALL=$TORCH_GPU_INSTALL" >> $GITHUB_ENV
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@8492260343ad570701412c2f464a5877dc76bace  # v2
       id: virtualenv-cache
       with:
         path: .venv
@@ -199,7 +199,7 @@ jobs:
 
     - name: Save coverage report
       if: matrix.task.coverage_report
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@3446296876d12d4e3a0f3145a3c87e67bf0a16b5  # v1
       with:
         name: ${{ matrix.task.name }}-coverage
         path: ./coverage
@@ -221,28 +221,28 @@ jobs:
 
     steps:
       # Need to checkout code to get the coverage config.
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
     - name: Download coverage report from CPU tests
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@18f0f591fbc635562c815484d73b6e8e3980482e  # v1
       with:
         name: CPU Tests-coverage
         path: coverage/cpu_tests
 
     - name: Download coverage report from GPU Tests
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@18f0f591fbc635562c815484d73b6e8e3980482e  # v1
       with:
         name: GPU Tests-coverage
         path: coverage/gpu_tests
 
     - name: Download coverage report from model tests
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@18f0f591fbc635562c815484d73b6e8e3980482e  # v1
       with:
         name: Model Tests-coverage
         path: coverage/model_tests
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192  # v1
       with:
         files: coverage/cpu_tests/coverage.xml,coverage/gpu_tests/coverage.xml,coverage/model_tests/coverage.xml
         # Ignore codecov failures as the codecov server is not
@@ -257,10 +257,10 @@ jobs:
     timeout-minutes: 18
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
     - name: Setup Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e  # v2
       env:
         # Log useful debugging information.
         ACTIONS_STEP_DEBUG: 'true'
@@ -278,7 +278,7 @@ jobs:
         echo "RUNNER_ARCH=$(uname -m)" >> $GITHUB_ENV
         echo "WEEK_NUMBER=$(date +%V)" >> $GITHUB_ENV
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@8492260343ad570701412c2f464a5877dc76bace  # v2
       id: virtualenv-cache
       with:
         path: .venv
@@ -342,7 +342,7 @@ jobs:
         python setup.py bdist_wheel sdist
 
     - name: Save core package
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@3446296876d12d4e3a0f3145a3c87e67bf0a16b5  # v1
       with:
         name: core-package
         path: dist
@@ -365,7 +365,7 @@ jobs:
 
     steps:
     - name: Setup Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@0f07f7f756721ebd886c2462646a35f78a8bc4de  # v1
       with:
         python-version: ${{ matrix.python }}
 
@@ -374,7 +374,7 @@ jobs:
         pip install --upgrade pip setuptools wheel
 
     - name: Download core package
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@18f0f591fbc635562c815484d73b6e8e3980482e  # v1
       with:
         name: core-package
         path: dist
@@ -402,7 +402,7 @@ jobs:
         cuda: ['10.2', '11.1']
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
     - name: Set image name and torch version
       env:
@@ -456,16 +456,16 @@ jobs:
     if: github.repository == 'allenai/allennlp'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
     - name: Setup SSH Client 🔑
       if: github.event_name == 'release' || github.event_name == 'push'
-      uses: webfactory/ssh-agent@v0.4.1
+      uses: webfactory/ssh-agent@ee29fafb6aa450493bac9136b346e51ea60a8b5e  # v0.4.1
       with:
         ssh-private-key: ${{ secrets.DOCS_DEPLOY_KEY }}
 
     - name: Setup Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e  # v2
       env:
         # Log useful debugging information.
         ACTIONS_STEP_DEBUG: 'true'
@@ -483,7 +483,7 @@ jobs:
         echo "RUNNER_ARCH=$(uname -m)" >> $GITHUB_ENV
         echo "WEEK_NUMBER=$(date +%V)" >> $GITHUB_ENV
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@8492260343ad570701412c2f464a5877dc76bace  # v2
       id: virtualenv-cache
       with:
         path: .venv
@@ -626,10 +626,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
     - name: Setup Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@0f07f7f756721ebd886c2462646a35f78a8bc4de  # v1
       with:
         python-version: 3.7
 
@@ -638,7 +638,7 @@ jobs:
         pip install --upgrade pip setuptools wheel twine
 
     - name: Download core package
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@18f0f591fbc635562c815484d73b6e8e3980482e  # v1
       with:
         name: core-package
         path: dist
